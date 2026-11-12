@@ -1,4 +1,4 @@
-# First Simple LLM App
+# Simple LLM App
 
 Pass a user message to Grok and display the reply.
 

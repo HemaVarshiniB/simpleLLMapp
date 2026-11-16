@@ -1,4 +1,4 @@
-https://github.com/HemaVarshiniB/simpleLLMapp/blob/hema_dev/demo.mp4
+![Demo of the application](./demo.gif)
 
 This project is the part of learning and practicing AI.
 

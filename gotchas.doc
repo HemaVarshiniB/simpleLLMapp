@@ -1,0 +1,19 @@
+- For Prompt injection detection, use this model as an example → meta-llama/llama-prompt-guard-2-22m
+- Why weather data is not displayed ? The LLM does not automatically access the internet just because you ask a question about current information.
+- Two ways to run models: 1. Cloud Inference 2.Local Inference
+- Cloud Inference: Model runs on Groq's infrastructure. Your application sends prompts over the internet. Groq processes the prompts and returns responses.You don't need to download model weights.
+- Local Inference: Download the model weights. Run the model on your own machine. Your prompts are processed locally. No Groq API call is required.\
+- The internet connection is being used to communicate with Groq's API. It doesn't automatically give the model a web browser.
+
+Question:  Suppose you have GPT-OSS-20B running on Groq Cloud, and you write a Python function called get_stock_price("AAPL") that fetches live stock prices. Does GPT-OSS-20B automatically execute that Python function when a user asks, "What is Apple's current stock price?" Or do you need to implement something additional?
+Answer: You need to implement Function Calling (Tool Calling) to connect the LLM with your Python functions. 
+Suppose user asks: "What is Apple's current stock price?"
+1. User: Sends the question.
+2. LLM: Recognizes that live stock information is required.
+3. Tool selection: The LLM requests your get_stock_price("AAPL") function.
+4. Python application: Executes the function.
+5. External API: Fetches the latest stock price.
+6. LLM: Receives the function result and generates a natural-language answer.
+The LLM decides which function to call based on the user's query, provided you implement function calling and give the LLM the available function descriptions/definitions.
+
+

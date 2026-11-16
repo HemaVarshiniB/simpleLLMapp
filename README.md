@@ -1,4 +1,6 @@
-[Watch Project Demo](./demo.mp4)
+<video width="400" controls>
+  <source src="./demo.mp4" type="video/mp4">
+</video>
 
 
 This project is the part of learning and practicing AI.

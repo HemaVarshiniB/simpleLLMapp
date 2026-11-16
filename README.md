@@ -1,5 +1,5 @@
 <video width="400" controls>
-  <source src="./demo.mp4" type="video/mp4">
+  <source src="https://github.com/HemaVarshiniB/simpleLLMapp/blob/hema_dev/demo.mp4" type="video/mp4">
 </video>
 
 

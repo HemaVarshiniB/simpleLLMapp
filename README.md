@@ -1,7 +1,4 @@
-<video width="400" controls>
-  <source src="https://github.com/HemaVarshiniB/simpleLLMapp/blob/hema_dev/demo.mp4" type="video/mp4">
-</video>
-
+https://github.com/HemaVarshiniB/simpleLLMapp/blob/hema_dev/demo.mp4
 
 This project is the part of learning and practicing AI.
 

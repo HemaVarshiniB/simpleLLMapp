@@ -16,4 +16,14 @@ Suppose user asks: "What is Apple's current stock price?"
 6. LLM: Receives the function result and generates a natural-language answer.
 The LLM decides which function to call based on the user's query, provided you implement function calling and give the LLM the available function descriptions/definitions.
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Context window: Can you keep sending unlimited conversation history?
+Token usage: Does sending previous messages increase input token consumption?
+Memory management: What happens when the conversation becomes very long?
+Conversation reset: How do you clear the current session?
+Persistence: Will your conversation history survive if you close and reopen the application?
+
 

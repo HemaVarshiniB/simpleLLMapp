@@ -1,4 +1,4 @@
-![Demo of the application](./demo.gif)
+<!-- ![Demo of the application](./demo.gif) -->
 
 This project is the part of learning and practicing AI.
 

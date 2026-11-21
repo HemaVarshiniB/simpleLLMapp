@@ -1,3 +1,5 @@
 1. Application should support multiple users
-2. Context window has to persisted eventhough laptop is shut down
+2. Context window has to be persisted eventhough laptop is shut down. Recover previous conversations after restarting the application.
 3. Implement Tool Calling and function calling
+4. Implement multiple sessions using session IDs, so that two different conversations can maintain separate histories without interfering with each other.
+5. Context Window is consuming so much memory and we have to summarise the previous chat and sent this summary to the LLM as context (to burn less token).

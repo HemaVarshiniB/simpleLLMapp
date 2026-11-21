@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 import streamlit as st
-from db.utils import create_newChat, insert_messages
+from db.utils import create_newChat, insert_messages, get_messages, get_all_sessions
 
 load_dotenv()
 
@@ -11,17 +11,26 @@ client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url=os.getenv("GROQ_URL"
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = None
-    
 if "msgs" not in st.session_state:
     st.session_state.msgs = []
 
 with st.sidebar:
     st.header("Chat Sessions")
-    
     if(st.button("New Chat")):
-        st.session_state.session_id = create_newChat()
+        session_id = create_newChat()
+        st.session_state.session_id = session_id
         st.session_state.msgs = []
-    
+        
+    sessions = get_all_sessions()
+    st.markdown("### Previous Sessions")
+    for session in sessions[::-1]:
+        session_id = session[0]
+        if(st.button(f"Session ID: {session_id}")):
+            # print("***********Sessions:", session_id)
+            st.session_state.session_id = session_id
+            st.session_state.msgs = get_messages(session_id)
+            # print("***********Messages:", st.session_state.msgs)
+            
 for msg in st.session_state.msgs:
     if msg["role"] == "user":
         st.chat_message("user").write(msg["content"])
@@ -50,7 +59,7 @@ if user_input:
         # Temperature controls the randomness of the model's output. A higher temperature (e.g., 0.8) will make the output more random, while a lower temperature (e.g., 0.2) will make it more focused and deterministic.
         response = client.chat.completions.create(model="qwen/qwen3.8-27b", messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.msgs], max_tokens=1000, temperature=0.7)
         if(response):
-            # print(response)
+            print(response)
             print(response.choices[0].message.content)
             ai_response = response.choices[0].message.content
             st.markdown(ai_response)

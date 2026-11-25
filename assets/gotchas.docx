@@ -18,12 +18,19 @@ The LLM decides which function to call based on the user's query, provided you i
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
-
-
 Context window: Can you keep sending unlimited conversation history?
 Token usage: Does sending previous messages increase input token consumption?
 Memory management: What happens when the conversation becomes very long?
 Conversation reset: How do you clear the current session?
 Persistence: Will your conversation history survive if you close and reopen the application?
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Function Calling:
+
+- 5 iterations are used to prevent the LLM from getting stuck in an endless tool-calling loop. Five is not a mandatory number.
+- Number of tools ≠ Number of iterations.
+- The LLM can request multiple tools in a single iteration.
+- We need iterations because sometimes the LLM doesn't know which tool to call next until it receives the result of the previous tool.
+
 
 

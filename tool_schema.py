@@ -68,6 +68,91 @@ my_tools = [
                 "required": ["query", "location", "country", "mode"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_emails",
+            "description": (
+                "Search the user's Gmail inbox. "
+                "Use Gmail search syntax to find emails "
+                "by sender, subject, date, or read status."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Gmail search query"
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "description": "Maximum emails to retrieve"
+                    }
+                },
+                "required": ["query", "max_results"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "read_email",
+            "description": (
+                "Read the full content of a Gmail message "
+                "using the exact Gmail API message_id returned by "
+                "search_emails. Do not use an email's RFC Message-ID "
+                "header, a thread ID, or an invented ID."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "message_id": {
+                        "type": "string",
+                        "description": (
+                            "Exact Gmail API message_id from a "
+                            "search_emails result"
+                        )
+                    }
+                },
+                "required": ["message_id"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "send_email",
+            "description": (
+                "Send an email using the user's Gmail account. "
+                "Only use when the user explicitly requests "
+                "sending an email. Never invent missing details."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "string",
+                        "description": "Recipient email address"
+                    },
+                    "subject": {
+                        "type": "string",
+                        "description": "Email subject"
+                    },
+                    "body": {
+                        "type": "string",
+                        "description": "Email message content"
+                    }
+                },
+                "required": ["to", "subject", "body"],
+                "additionalProperties": False
+            },
+            "strict": True
+        }
     }
 
 ]

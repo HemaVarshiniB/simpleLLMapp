@@ -2,7 +2,8 @@ from urllib import response
 from dotenv import load_dotenv
 import requests
 import os
-
+from gmail_toolService import (
+    get_gmail_service, read_email, send_email, search_emails)
 
 load_dotenv()
 
@@ -204,3 +205,50 @@ def get_news(
             "message": str(e),
             "articles": []
         }
+        
+
+# def execute_tool(tool_name, arguments, gmail_service):
+
+#     if tool_name == "search_emails":
+
+#         return search_emails(
+#             gmail_service,
+#             arguments["query"],
+#             arguments["max_results"]
+#         )
+
+#     elif tool_name == "read_email":
+
+#         return read_email(
+#             gmail_service,
+#             arguments["message_id"]
+#         )
+
+#     elif tool_name == "send_email":
+
+#         # Show the email before sending
+#         print("\n----- EMAIL PREVIEW -----")
+#         print("To:", arguments["to"])
+#         print("Subject:", arguments["subject"])
+#         print("Body:", arguments["body"])
+#         print("-------------------------")
+
+#         confirmation = input(
+#             "Do you want to send this email? (yes/no): "
+#         ).strip().lower()
+
+#         if confirmation not in ["yes", "y"]:
+#             return {
+#                 "status": "cancelled",
+#                 "message": "User declined sending the email."
+#             }
+
+#         return send_email(
+#             gmail_service,
+#             arguments["to"],
+#             arguments["subject"],
+#             arguments["body"]
+#         )
+
+#     else:
+#         raise ValueError(f"Unknown tool: {tool_name}")

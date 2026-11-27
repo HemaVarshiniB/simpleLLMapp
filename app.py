@@ -3,14 +3,35 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import streamlit as st
 from db.utils import create_newChat, insert_messages, get_messages, get_all_sessions
+from gmail_toolService import (
+    get_gmail_service,
+    send_email,
+    read_email,
+    search_emails,
+)
 from tool_schema import my_tools
 from toolFunctions import get_weather, get_news
 import json
 
 
+def search_gmail(query, max_results):
+    return search_emails(get_gmail_service(), query, max_results)
+
+
+def read_gmail(message_id):
+    return read_email(get_gmail_service(), message_id)
+
+
+def send_gmail(to, subject, body):
+    return send_email(get_gmail_service(), to, subject, body)
+
+
 available_functions = {
     "get_weather": get_weather,
-    "get_news": get_news
+    "get_news": get_news,
+    "read_email": read_gmail,
+    "send_email": send_gmail,
+    "search_emails": search_gmail,
 }
 
 
@@ -67,7 +88,7 @@ if user_input:
         st.markdown(user_input)
         
     try:
-        # Sets the maximum number of tokens the model can generate in its response. It does not mean the model must generate exactly 1,000 tokens.
+        # Sets the maximum number of tokens the model can generate in its response. It does not mean the model must generate exactly 1,000 tokens. max_tokens=1000 controls the maximum generated output, not the size of your input conversation.
         # Temperature controls the randomness of the model's output. A higher temperature (e.g., 0.8) will make the output more random, while a lower temperature (e.g., 0.2) will make it more focused and deterministic.
         response = client.chat.completions.create(model="qwen/qwen3.8-27b", messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.msgs], tools=my_tools, tool_choice="auto", max_tokens=1000, temperature=0.7)
         
@@ -108,6 +129,12 @@ if user_input:
                     try:
                         result = function_to_call(**arguments)
                     except Exception as tool_error:
+                        if function_name in {
+                            "read_email",
+                            "send_email",
+                            "search_emails",
+                        }:
+                            st.error(f"{function_name} failed: {tool_error}")
                         result = {"error": str(tool_error)}
 
                 # 5. Append function execution result

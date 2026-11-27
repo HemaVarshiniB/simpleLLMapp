@@ -32,5 +32,6 @@ Function Calling:
 - The LLM can request multiple tools in a single iteration.
 - We need iterations because sometimes the LLM doesn't know which tool to call next until it receives the result of the previous tool.
 
+How Function Calling works: https://www.youtube.com/watch?v=Qor2VZoBib0
 
 
